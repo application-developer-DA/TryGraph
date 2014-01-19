@@ -1,5 +1,4 @@
-#ifndef EDGE_H
-#define EDGE_H
+#pragma once
 
 #include <QGraphicsItem>
 #include <QPen>
@@ -49,4 +48,3 @@ private:
     QPen pen;
 };
 
-#endif // EDGE_H

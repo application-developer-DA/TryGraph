@@ -1,5 +1,4 @@
-#ifndef GRAPHWIDGET_H
-#define GRAPHWIDGET_H
+#pragma once
 
 #include <QGraphicsView>
 
@@ -13,7 +12,7 @@ class GraphWidget : public QGraphicsView
     Q_OBJECT
 
 public:
-    GraphWidget(QWidget* parent = 0);
+    GraphWidget(QWidget* parent = nullptr);
 
     void addEdgeById(int, int, int cost = 0);
     void removeNode(Node* node);
@@ -25,7 +24,6 @@ public:
 
     Node* from;
     QList<QGraphicsItem*> items;
-
 
     bool addEdgesMode;  // Whether addEdges mode on or off
     bool isOriented;
@@ -60,4 +58,3 @@ private:
     int findMinCost(const QList<Edge*>& edges, const QSet<int>& verticesSet);
 };
 
-#endif // GRAPHWIDGET_H

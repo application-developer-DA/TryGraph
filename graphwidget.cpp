@@ -1,9 +1,7 @@
-
 #include "edge.h"
 #include "graphwidget.h"
 #include "mainwindow.h"
 #include "node.h"
-
 
 #include <QtAlgorithms>
 #include <QtGui>
@@ -23,18 +21,17 @@ static bool lessThanComparator( Edge* e1, Edge* e2)
 }
 
 GraphWidget::GraphWidget(QWidget *parent)
-    :QGraphicsView(parent),
-      addEdgesMode(false),
-      from(NULL),
-      isOriented(false),
-      isDijkstraStart(false),
-      isSearchDraw(false),
-      isBfs(false),
-      isBellmanFord(false)
+    : QGraphicsView(parent)
+    , addEdgesMode(false)
+    , from(NULL)
+    , isOriented(false)
+    , isDijkstraStart(false)
+    , isSearchDraw(false)
+    , isBfs(false)
+    , isBellmanFord(false)
 {
     QGraphicsScene *scene = new QGraphicsScene(this);
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
-    scene->setSceneRect(0, 0, 400, 400);
     setScene(scene);
     setCacheMode(CacheBackground);
     setViewportUpdateMode(BoundingRectViewportUpdate);

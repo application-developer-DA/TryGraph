@@ -1,5 +1,4 @@
-#ifndef DIALOG_H
-#define DIALOG_H
+#pragma once
 
 #include <QDialog>
 
@@ -26,4 +25,3 @@ private:
     GraphWidget*  g;
 };
 
-#endif // DIALOG_H

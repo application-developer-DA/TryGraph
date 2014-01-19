@@ -1,5 +1,4 @@
-#ifndef NODE_H
-#define NODE_H
+#pragma once
 
 #include <QGraphicsItem>
 #include <list>
@@ -50,4 +49,3 @@ private:
 
 };
 
-#endif // NODE_H

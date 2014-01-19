@@ -1,5 +1,4 @@
-#ifndef COSTDIALOG_H
-#define COSTDIALOG_H
+#pragma once
 
 #include <QDialog>
 
@@ -25,4 +24,3 @@ private:
     Edge*            edge;
 };
 
-#endif // COSTDIALOG_H

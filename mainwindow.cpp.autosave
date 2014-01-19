@@ -222,19 +222,19 @@ void MainWindow::dijkstraStart()
 
 void MainWindow::dfsStart()
 {
-    setStatusBarMessage("Choose the vertex please");
+    setStatusBarMessage();
     graph->isSearchDraw = true;
 }
 
 void MainWindow::bfsStart()
 {
-    setStatusBarMessage("Choose the vertex please");
+    setStatusBarMessage();
     graph->isBfs = true;
 }
 
 void MainWindow::bellmanFordStart()
 {
-    setStatusBarMessage("Choose the vertex please");
+    setStatusBarMessage();
     graph->isBellmanFord = true;
 }
 
