@@ -5,8 +5,6 @@
 class Node;
 class Edge;
 
-#define TestPurposes
-
 class GraphWidget : public QGraphicsView
 {
     Q_OBJECT

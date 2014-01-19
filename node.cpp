@@ -8,7 +8,7 @@
 #include <QGraphicsSceneMouseEvent>
 
 
-Node::Node(IObserver* observer, qreal x, qreal y, int id)
+Node::Node(INodeObserver* observer, qreal x, qreal y, int id)
     : observer(observer)
     , id(id)
     , shortestPath(std::numeric_limits<int>::max())
@@ -73,8 +73,6 @@ QVariant Node::itemChange(QGraphicsItem::GraphicsItemChange change, const QVaria
     case ItemPositionHasChanged:
         foreach(Edge& edge, edgesList)
             edge.adjust();
-        break;
-    default:
         break;
     };
 

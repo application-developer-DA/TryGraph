@@ -3,47 +3,46 @@
 #include <QGraphicsItem>
 #include <QPen>
 
-class GraphWidget;
 class Node;
 
 class Edge : public QGraphicsItem
 {
 public:
-    Edge(GraphWidget* graphwidget, Node* sourceNode, Node* destinationNode, int costValue = 1);
-    ~Edge();
+    class IEdgeObserver
+    {
+        virtual bool isOriented() const = 0;
+        virtual void removeEdge(Edge* edge) = 0;
+        virtual void displayCostDialog(Edge* edge) = 0;
+    };
 
-    Node* getSourceNode() const;
-    Node* getDestinationNode() const;
+    Edge(IEdgeObserver* observer, Node* sourceNode, Node* destinationNode, int costValue = 1);
 
+    Node* sourceNode() const         { return source; }
+    Node* destinationNode() const    { return destination; }
 
-    bool isInTree;
+    int cost() const                 { return cost; }
+    void setCost(int costValue)      { cost = costValue; }
 
     void adjust();
-    void setCost(int costValue);
-    int costLink() const;
-
-    // Inherited from base class, need to be reimplemented
-    enum { Type = UserType + 2 };
-    int type() const { return Type; }
 
     QRectF boundingRect() const;
     QPainterPath shape() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-
-protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
 
 private:
     static const int lineWidth = 2;
-    int cost;
+
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+
+    IEdgeObserver* observer;
+
+    int   cost;
     Node* source;
     Node* destination;
 
     QPointF sourcePoint;
     QPointF destinationPoint;
-
-    GraphWidget* graph;
 
     QPen pen;
 };

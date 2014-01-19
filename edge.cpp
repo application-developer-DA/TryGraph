@@ -1,12 +1,7 @@
-#include "costdialog.h"
 #include "edge.h"
-#include "graphwidget.h"
-#include "mainwindow.h"
-#include "node.h"
 
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
-#include <QLineEdit>
 #include <QPainter>
 #include <QStyleOption>
 
@@ -15,34 +10,18 @@
 static const double Pi = 3.14159265358979323846264338327950288419717;
 static const double TwoPi = 2.0 * Pi;
 
-Edge::Edge(GraphWidget *graphwidget, Node *sourceNode, Node *destinationNode, int costValue):
-    graph(graphwidget),
-    source(sourceNode),
-    destination(destinationNode),
-    cost(costValue),
-    isInTree(false)
+Edge::Edge(IEdgeObserver* observer, Node *sourceNode, Node *destinationNode, int costValue)
+    : observer(observer)
+    , source(sourceNode)
+    , destination(destinationNode)
+    , cost(costValue)
+    , isInTree(false)
 {
     source->addEdge(this);
     destination->addEdge(this);
     pen = QPen(Qt::black, lineWidth, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
 
     adjust();
-}
-
-Edge::~Edge()
-{
-    source->removeEdge(this);
-    destination->removeEdge(this);
-}
-
-Node* Edge::getSourceNode() const
-{
-    return source;
-}
-
-Node* Edge::getDestinationNode() const
-{
-    return destination;
 }
 
 void Edge::adjust()
@@ -55,13 +34,13 @@ void Edge::adjust()
 
     prepareGeometryChange();
 
-    if(length > qreal(20.))
-    {
+    if(length > qreal(20.)) {
         sourcePoint = line.p1();
         destinationPoint = line.p2();
     }
-    else
+    else {
         sourcePoint = destinationPoint = line.p1();
+    }
 }
 
 void Edge::setCost(int costValue)
@@ -124,10 +103,10 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
         return;
 
     // Draw the line itself
-    if(!isInTree)
+    if(!isInTree) {
         painter->setPen(pen);
-    else
-    {
+    }
+    else {
         QPen mypen = QPen(Qt::darkGreen, lineWidth, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
         painter->setPen(mypen);
     }
@@ -139,22 +118,12 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     QPointF midpoint(x / 2, y / 2);
     painter->drawText(midpoint, QString::number(cost));
 
-    if(graph->isOriented)
-    {
+    if(observer->isOriented()) {
         // Draw the arrows
         double angle = ::acos(line.dx() / line.length());
         if (line.dy() >= 0)
             angle = TwoPi - angle;
         double arrowSize = 15;
-
-//        double l = sqrt(line.dx()*line.dx() + line.dy()*line.dy());
-//        double divdxl = line.dx() / l;
-//        double divdxy = line.dy() / l;
-        /*
-        QPointF sourceArrowP1 = sourcePoint + QPointF(sin(angle + Pi / 3) * arrowSize,
-                                                      cos(angle + Pi / 3) * arrowSize);
-        QPointF sourceArrowP2 = sourcePoint + QPointF(sin(angle + Pi - Pi / 3) * arrowSize,
-                                                      cos(angle + Pi - Pi / 3) * arrowSize);*/
 
         QPointF destArrowP1 = destinationPoint + QPointF(sin(angle - Pi / 3) * arrowSize,
                                                   cos(angle - Pi / 3) * arrowSize);
@@ -162,35 +131,23 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
                                                   cos(angle - Pi + Pi / 3) * arrowSize);
 
         painter->setBrush(Qt::yellow);
-        //painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
         painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
     }
 }
 
 void Edge::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    if(event->button() == Qt::RightButton)
-    {
-        // remove edge and liks to it
-        graph->removeEdge(this);
+    switch (event->button()) {
+    case Qt::RightButton:
+        observer->removeEdge(this);
+        break;
+    case Qt::LeftButton:
+        observer->displayCostDialog(this);
+        break;
     }
-    else
-        if(event->button() == Qt::LeftButton)
-        {
-//            QLineEdit* lineedit = new QLineEdit(graph);
-//            // Getting mid point of the line
-//            QPointF midpoint(mapToScene(event->pos()));
-//            lineedit->pos().setX(midpoint.x());
-//            lineedit->pos().setY(midpoint.y());
-//            lineedit->show();
-            CostDialog* cd = new CostDialog(graph, this);
-            cd->show();
-        }
-        else
-        {
-            update();
-            QGraphicsItem::mousePressEvent(event);
-        }
+
+    update();
+    QGraphicsItem::mousePressEvent(event);
 }
 
 void Edge::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)

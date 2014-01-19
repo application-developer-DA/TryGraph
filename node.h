@@ -10,19 +10,17 @@
 class Node : public QGraphicsItem
 {
 public:
-    class IObserver
+    class INodeObserver
     {
-        void removeNode(int id);
-        void nodeClicked(int id);
+        virtual void removeNode(int id) = 0;
+        virtual void nodeClicked(int id) = 0;
     };
 
-    Node(IObserver* observer, qreal x = 0, qreal y = 0, int id = -1);
+    Node(INodeObserver* observer, qreal x = 0, qreal y = 0, int id = -1);
 
     void addEdge(Edge& edge);
     void removeEdge(Edge& edge);
     void removeConnections();
-
-    virtual int type() const override       { return UserType + 1; }
 
     int id() const                          { return id; }
     void setId(int id)                      { this->id = id; }
@@ -39,7 +37,7 @@ private:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
-    IObserver*        observer;
+    INodeObserver*    observer;
     int               id;
     int               shortestPath;
     std::list<Edge&>  edgesList;
