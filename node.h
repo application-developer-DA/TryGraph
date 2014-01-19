@@ -1,51 +1,48 @@
 #pragma once
 
-#include <QGraphicsItem>
+#include "edge.h"
+
 #include <list>
 
-class Edge;
-class GraphWidget;
+#include <QGraphicsItem>
+
 
 class Node : public QGraphicsItem
 {
 public:
-    Node(GraphWidget *graphwidget, qreal x = 0, qreal y = 0, int _id = -1);
-    ~Node();
+    class IObserver
+    {
+        void removeNode(int id);
+        void nodeClicked(int id);
+    };
 
-    int id;
-    int shortestPath;
+    Node(IObserver* observer, qreal x = 0, qreal y = 0, int id = -1);
 
-    void addEdge(Edge* edge);
-    void removeEdge(Edge* edge);
+    void addEdge(Edge& edge);
+    void removeEdge(Edge& edge);
     void removeConnections();
-    void setId(int _id);
-    std::list<Edge*> getEdges() const;
 
-    Edge* isDirectlyConnected(Node* firstNode, Node* secondNode);
+    virtual int type() const override       { return UserType + 1; }
 
-    // Inherited from base class, need to be reimplemented
-    enum { Type = UserType + 1 };
-    int type() const { return Type; }
-
-    QRectF boundingRect() const;
-    QPainterPath shape() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-
-    static void setUIDcounter(int value) { Node::uniqueId = value; }
-
-protected:
-    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
-
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    int id() const                          { return id; }
+    void setId(int id)                      { this->id = id; }
+    std::list<Edge&> edges() const          { return edgesList; }
 
 private:
     static const int  ellipseSideWidth = 15;
-    static       int  uniqueId;    // Stores the unique ID for the next node
 
-    QPointF           newPos;
-    GraphWidget*      graph;
-    std::list<Edge*>  edgesList;
+    virtual QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
+    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+    virtual QRectF boundingRect() const override;
+    virtual QPainterPath shape() const override;
+
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+
+    IObserver*        observer;
+    int               id;
+    int               shortestPath;
+    std::list<Edge&>  edgesList;
 
 };
 
