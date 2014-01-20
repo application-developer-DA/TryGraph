@@ -4,6 +4,7 @@
 #include "edge.h"
 
 #include <map>
+#include <memory>
 
 #include <QGraphicsView>
 
@@ -32,12 +33,12 @@ public:
         ActionCount
     } pressAction;
 
-    GraphWidget(QWidget* parent = nullptr, bool isOriented = false);
+    GraphWidget(QWidget* parent = nullptr, bool oriented = false);
 
     virtual void removeNode(uintptr_t id) override;
     virtual void nodeClicked(uintptr_t id) override;
 
-    virtual void isOriented() const override;
+    virtual bool isOriented() const override;
     virtual void removeEdge(uintptr_t id) override;
     virtual void displayCostDialog(uintptr_t id) override;
 
@@ -58,9 +59,9 @@ private:
     void kruskal();
     void prim();
 
-    std::map<uintptr_t, Node> vertices;
-    std::map<uintptr_t, Edge> edges;
+    std::map<uintptr_t, std::unique_ptr<Node>> vertices;
+    std::map<uintptr_t, std::unique_ptr<Edge>> edges;
 
-    bool isOriented;
+    bool oriented;
 };
 

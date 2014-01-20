@@ -12,14 +12,15 @@ class Node : public QGraphicsItem
 public:
     class INodeObserver
     {
+    public:
         virtual void removeNode(uintptr_t id) = 0;
         virtual void nodeClicked(uintptr_t id) = 0;
     };
 
     Node(INodeObserver* observer, int x, int y);
 
-    void addEdge(Edge& edge);
-    void removeEdge(Edge& edge);
+    void addEdge(Edge* edge);
+    void removeEdge(Edge* edge);
     void removeConnections();
 
     std::list<uintptr_t> edgeIdentifiers() const;
@@ -37,7 +38,6 @@ private:
 
     INodeObserver*    observer;
     int               shortestPath;
-    std::list<Edge&>  edgesList;
-
+    std::list<Edge*>  edgesList;
 };
 

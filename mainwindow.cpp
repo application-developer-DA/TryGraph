@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "dialog.h"
 #include "edge.h"
 #include "graphwidget.h"
 #include "node.h"
@@ -88,15 +87,17 @@ void MainWindow::setStatusBarMessage(const QString& message = "Choose the vertex
 
 void MainWindow::newFile()
 {
-    graph->clean();
+    /*
     Dialog dialog(this, graph);
     dialog.show();
     dialog.setModal(true);
+    */
 }
 
 void MainWindow::saveFile()
 {
     // Get fileName from user
+    /*
     QString fileName = QFileDialog::getSaveFileName(this,
                                                     tr("Save Animation"), "",
                                                     tr("(*.ae)"));
@@ -152,11 +153,14 @@ void MainWindow::saveFile()
 
         file.close();
     }
+    */
 }
 
 void MainWindow::openFile()
 {
     // Get fileName from user
+
+    /*
     QString fileName = QFileDialog::getOpenFileName(this, tr("Load Animation"));
     if (fileName.isEmpty())
         return;
@@ -219,6 +223,7 @@ void MainWindow::openFile()
             edgeNode = edgeNode.nextSibling();              // Go to next edge
         }
     }
+    */
 }
 
 void MainWindow::edgeModeChanged()

@@ -3,25 +3,19 @@
 #include <QGraphicsItem>
 #include <QPen>
 
-class Node;
 
 class Edge : public QGraphicsItem
 {
 public:
     class IEdgeObserver
     {
+    public:
         virtual bool isOriented() const = 0;
         virtual void removeEdge(uintptr_t id) = 0;
         virtual void displayCostDialog(uintptr_t id) = 0;
     };
 
-    Edge(IEdgeObserver* observer, const Node* sourceNode, const Node* destinationNode, int costValue = 1);
-
-    const Node* sourceNode() const         { return source; }
-    const Node* destinationNode() const    { return destination; }
-
-    int cost() const                 { return cost; }
-    void setCost(int costValue)      { cost = costValue; }
+    Edge(IEdgeObserver* observer, const QGraphicsItem* sourceNode, const QGraphicsItem* destinationNode);
 
     void adjust();
 
@@ -37,13 +31,13 @@ private:
 
     IEdgeObserver*  observer;
 
-    int             cost;
-    const Node*     source;
-    const Node*     destination;
+    const QGraphicsItem*     source;
+    const QGraphicsItem*     destination;
 
     QPointF sourcePoint;
     QPointF destinationPoint;
 
+    int  cost;
     QPen pen;
 };
 

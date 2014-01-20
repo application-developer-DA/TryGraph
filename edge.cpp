@@ -11,15 +11,13 @@
 static const double Pi = 3.14159265358979323846264338327950288419717;
 static const double TwoPi = 2.0 * Pi;
 
-Edge::Edge(IEdgeObserver* observer, const Node* sourceNode, const Node* destinationNode, int costValue)
+Edge::Edge(IEdgeObserver* observer, const QGraphicsItem* sourceNode, const QGraphicsItem* destinationNode)
     : observer(observer)
     , source(sourceNode)
     , destination(destinationNode)
-    , cost(costValue)
-    , isInTree(false)
 {
-    source->addEdge(this);
-    destination->addEdge(this);
+    // source->addEdge(this);
+    // destination->addEdge(this);
     pen = QPen(Qt::black, lineWidth, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
 
     adjust();
@@ -96,6 +94,7 @@ void Edge::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWid
     if (qFuzzyCompare(line.length(), qreal(0.)))
         return;
 
+    bool isInTree = false;
     // Draw the line itself
     if(!isInTree) {
         painter->setPen(pen);

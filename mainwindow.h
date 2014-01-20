@@ -25,13 +25,6 @@ private slots:
     void newFile();
     void saveFile();
     void openFile();
-    void dijkstraStart();
-    void dfsStart();
-    void bfsStart();
-    void bellmanFordStart();
-    void kruskalsStart();
-    void primsStart();
-    void connectivityStart();
     void edgeModeChanged();
 
 private:

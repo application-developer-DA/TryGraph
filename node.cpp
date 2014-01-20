@@ -20,13 +20,13 @@ Node::Node(INodeObserver* observer, int x, int y)
     setAcceptHoverEvents(true);
 }
 
-void Node::addEdge(Edge& edge)
+void Node::addEdge(Edge* edge)
 {
     edgesList.push_back(edge);
-    edge.adjust();
+    edge->adjust();
 }
 
-void Node::removeEdge(Edge& edge)
+void Node::removeEdge(Edge* edge)
 {
     edgesList.remove(edge);
 }
@@ -78,8 +78,8 @@ QVariant Node::itemChange(QGraphicsItem::GraphicsItemChange change, const QVaria
 {
     switch(change) {
     case ItemPositionHasChanged:
-        foreach(Edge& edge, edgesList)
-            edge.adjust();
+        foreach(Edge* edge, edgesList)
+            edge->adjust();
         break;
     };
 

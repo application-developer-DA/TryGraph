@@ -8,9 +8,9 @@
 #include <QtGui>
 
 
-GraphWidget::GraphWidget(QWidget* parent, bool isOriented)
+GraphWidget::GraphWidget(QWidget* parent, bool oriented)
     : QGraphicsView(parent)
-    , isOriented(isOriented)
+    , oriented(oriented)
 {
     QGraphicsScene *scene = new QGraphicsScene(this);
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
@@ -25,7 +25,7 @@ void GraphWidget::removeNode(uintptr_t id)
     auto it = vertices.find(id);
     Q_ASSERT(it != vertices.end());
 
-    auto adjacentEdges = it->edgeIdentifiers();
+    auto adjacentEdges = it->second->edgeIdentifiers();
     for (auto it = begin(adjacentEdges); it != end(adjacentEdges); ++it)
         edges.erase(*it);
 
@@ -46,9 +46,9 @@ void GraphWidget::nodeClicked(uintptr_t id)
     }
 }
 
-void GraphWidget::isOriented() const
+bool GraphWidget::isOriented() const
 {
-    return isOriented;
+    return oriented;
 }
 
 void GraphWidget::removeEdge(uintptr_t id)
@@ -66,7 +66,7 @@ void GraphWidget::displayCostDialog(uintptr_t id)
 
 void GraphWidget::applyAlgorithm()
 {
-    Algorithm algorithm = (Algorithm)sender()->property("Algorithm");
+    Algorithm algorithm = (Algorithm)sender()->property("Algorithm").toInt();
     switch (algorithm) {
     case DijkstraAlgorithm:
         break;
@@ -109,12 +109,12 @@ void GraphWidget::keyPressEvent(QKeyEvent* event)
 
 void GraphWidget::addVertex(int x, int y)
 {
-    Node node(this, x, y);
+    Node* node = new Node(this, x, y);
     scene()->addItem(node);
-    node.setPos(mapToScene(x, y));
+    node->setPos(mapToScene(x, y));
 
-    Q_ASSERT(vertices.find(&node) == vertices.end());
-    vertices.insert(std::make_pair(&node, node));
+    Q_ASSERT(vertices.find((uintptr_t)node) == vertices.end());
+    vertices.insert(std::make_pair((uintptr_t)node, std::unique_ptr<Node>(node)));
 }
 
 
