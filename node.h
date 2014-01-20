@@ -22,7 +22,6 @@ public:
     void removeEdge(Edge& edge);
     void removeConnections();
 
-    int id() const                          { return id; }
     void setId(int id)                      { this->id = id; }
     std::list<Edge&> edges() const          { return edgesList; }
 
@@ -38,7 +37,6 @@ private:
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
     INodeObserver*    observer;
-    int               id;
     int               shortestPath;
     std::list<Edge&>  edgesList;
 

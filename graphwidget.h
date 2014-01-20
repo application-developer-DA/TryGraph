@@ -1,58 +1,44 @@
 #pragma once
 
+#include "node.h"
+#include "edge.h"
+
+#include <map>
+
 #include <QGraphicsView>
 
-class Node;
-class Edge;
 
 class GraphWidget : public QGraphicsView
+                  , public Node::INodeObserver
+                  , public Edge::IEdgeObserver
 {
     Q_OBJECT
 
 public:
     GraphWidget(QWidget* parent = nullptr);
 
-    void addEdgeById(int, int, int cost = 0);
-    void removeNode(Node* node);
-    void removeEdge(Edge* edge);
-    void clean();
+    virtual void removeNode(int id) override;
+    virtual void nodeClicked(int id) override;
 
-    Edge* createEdge(Node *node1, Node *node2, int cost = 1);
-    Node* createNode(qreal x, qreal y, int id = -1);
-
-    Node* from;
-    QList<QGraphicsItem*> items;
-
-    bool addEdgesMode;  // Whether addEdges mode on or off
-    bool isOriented;
-    bool isDijkstraStart;
-    bool isSearchDraw; // DFS
-    bool isBfs;
-    bool isBellmanFord;
-
-    // Algorithms
-    void DijkstrasAlgorithm(int id);
-    void dfs(int id);
-    void _dfs(Node* node, QMap<int, bool>& visited, int& idx);
-    int bfs(int id, bool showResult = true);
-    void bellmanFord(int id);
-    void kruskalsAlgorithm();
-    void primsAlgorithm();
-    bool checkConnectivity(bool displayMessage = false);
-
-public slots:
-    void changeType(bool value) { addEdgesMode = value; }
-    void clear();
-    void startKruskals();
-
-protected:
-    void mousePressEvent(QMouseEvent *event);
-    void keyPressEvent(QKeyEvent *event);
+    virtual void isOriented() const override;
+    virtual void removeEdge(Edge *edge) override;
+    virtual void displayCostDialog(Edge *edge) override;
 
 private:
-    QList<QGraphicsTextItem*> texts;
-    void checkTests();
-    int getSetIdx(const QList< QSet<int> >& sets, int idx);
-    int findMinCost(const QList<Edge*>& edges, const QSet<int>& verticesSet);
+    virtual void mousePressEvent(QMouseEvent* event) override;
+    virtual void keyPressEvent(QKeyEvent* event) override;
+
+    void addVertex(int x, int y);
+
+    /* Graph Algorithms */
+    void dijkstra(int id);
+    void dfs(int id);
+    void bfs(int id);
+    void bellmanFord(int id);
+    void kruskal();
+    void prim();
+
+    std::map<uintptr_t, Node> vertices;
+    std::map<uintptr_t, Edge> edges;
 };
 
