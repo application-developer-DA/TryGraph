@@ -57,20 +57,27 @@ MainWindow::MainWindow(QWidget* parent)
     connect(newAction,               SIGNAL(triggered()), SLOT(newFile()));
     connect(openAction,              SIGNAL(triggered()), SLOT(openFile()));
     connect(saveAction,              SIGNAL(triggered()), SLOT(saveFile()));
-    connect(dijkstraAction,          SIGNAL(triggered()), SLOT(dijkstraStart()));
-    connect(dfsAction,               SIGNAL(triggered()), SLOT(dfsStart()));
-    connect(bfsAction,               SIGNAL(triggered()), SLOT(bfsStart()));
-    connect(bellmanFordAction,       SIGNAL(triggered()), SLOT(bellmanFordStart()));
-    connect(kruskalsAction,          SIGNAL(triggered()), SLOT(kruskalsStart()));
-    connect(primsAction,             SIGNAL(triggered()), SLOT(primsStart()));
-    connect(connectivityCheckAction, SIGNAL(triggered()), SLOT(connectivityStart()));
     connect(edgesMode,               SIGNAL(clicked()),   SLOT(edgeModeChanged()));
     connect(vertexMode,              SIGNAL(clicked()),   SLOT(edgeModeChanged()));
+
+    dijkstraAction->setProperty("Algorithm", DijkstraAlgorithm);
+    dfsAction->setProperty("Algorithm", DfsAlgorithm);
+    bfsAction->setProperty("Algorithm", BfsAlgorithm);
+    bellmanFordAction->setProperty("Algorithm", BellmanFordAlgorithm);
+    kruskalsAction->setProperty("Algorithm", KruskalAlgorithm);
+    primsAction->setProperty("Algorithm", PrimAlgorithm);
+
+    connect(dijkstraAction,          SIGNAL(triggered()), graph, SLOT(applyAlgorithm()));
+    connect(dfsAction,               SIGNAL(triggered()), graph, SLOT(applyAlgorithm()));
+    connect(bfsAction,               SIGNAL(triggered()), graph, SLOT(applyAlgorithm()));
+    connect(bellmanFordAction,       SIGNAL(triggered()), graph, SLOT(applyAlgorithm()));
+    connect(kruskalsAction,          SIGNAL(triggered()), graph, SLOT(applyAlgorithm()));
+    connect(primsAction,             SIGNAL(triggered()), graph, SLOT(applyAlgorithm()));
+    connect(connectivityCheckAction, SIGNAL(triggered()), graph, SLOT(applyAlgorithm()));
 }
 
 MainWindow::~MainWindow()
 {
-    graph->clean();
     delete ui;
 }
 
@@ -214,50 +221,11 @@ void MainWindow::openFile()
     }
 }
 
-void MainWindow::dijkstraStart()
-{
-    setStatusBarMessage();
-    graph->isDijkstraStart = true;
-}
-
-void MainWindow::dfsStart()
-{
-    setStatusBarMessage();
-    graph->isSearchDraw = true;
-}
-
-void MainWindow::bfsStart()
-{
-    setStatusBarMessage();
-    graph->isBfs = true;
-}
-
-void MainWindow::bellmanFordStart()
-{
-    setStatusBarMessage();
-    graph->isBellmanFord = true;
-}
-
-void MainWindow::kruskalsStart()
-{
-    graph->kruskalsAlgorithm();
-}
-
-void MainWindow::primsStart()
-{
-    graph->primsAlgorithm();
-}
-
-void MainWindow::connectivityStart()
-{
-    graph->checkConnectivity(true);
-}
-
 void MainWindow::edgeModeChanged()
 {
-    if(edgesMode->isChecked())
-        graph->changeType(true);
-    else
-        graph->changeType(false);
+    if (edgesMode->isChecked())
+        graph->pressAction = GraphWidget::AddEdgeAction;
+    else if (vertexMode->isChecked())
+        graph->pressAction = GraphWidget::EditAction;
 }
 

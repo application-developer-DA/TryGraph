@@ -1,7 +1,6 @@
-#include "costdialog.h"
-#include "ui_costdialog.h"
-
 #include "edge.h"
+#include "costdialog.h"
+
 
 CostDialog::CostDialog(QWidget *parent, Edge *_edge) :
     QDialog(parent),

@@ -22,7 +22,7 @@ public:
     void removeEdge(Edge& edge);
     void removeConnections();
 
-    std::list<Edge&> edges() const  { return edgesList; }
+    std::list<uintptr_t> edgeIdentifiers() const;
 
 private:
     static const int  ellipseSideWidth = 15;

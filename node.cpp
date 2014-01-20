@@ -36,6 +36,14 @@ void Node::removeConnections()
     edgesList.clear();
 }
 
+std::list<uintptr_t> Node::edgeIdentifiers() const
+{
+    std::list<uintptr_t> ids;
+    for (auto it = begin(edgesList); it != end(edgesList); ++it)
+        ids.push_back((uintptr_t)(*it));
+    return ids;
+}
+
 QRectF Node::boundingRect() const
 {
     return QRectF(-ellipseSideWidth/2, -ellipseSideWidth/2, ellipseSideWidth, ellipseSideWidth);

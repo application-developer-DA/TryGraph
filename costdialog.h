@@ -4,10 +4,6 @@
 
 class Edge;
 
-namespace Ui {
-class CostDialog;
-}
-
 class CostDialog : public QDialog
 {
     Q_OBJECT
@@ -20,7 +16,6 @@ private slots:
     void changeCost();
     
 private:
-    Ui::CostDialog*  ui;
     Edge*            edge;
 };
 

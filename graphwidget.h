@@ -7,6 +7,16 @@
 
 #include <QGraphicsView>
 
+enum Algorithm {
+    DijkstraAlgorithm,
+    DfsAlgorithm,
+    BfsAlgorithm,
+    BellmanFordAlgorithm,
+    KruskalAlgorithm,
+    PrimAlgorithm,
+    ConnectivityCheckAlgorithm,
+    AlgorithmCount
+};
 
 class GraphWidget : public QGraphicsView
                   , public Node::INodeObserver
@@ -15,7 +25,14 @@ class GraphWidget : public QGraphicsView
     Q_OBJECT
 
 public:
-    GraphWidget(QWidget* parent = nullptr);
+    enum OnPressAction {
+        AddEdgeAction,
+        EditAction,
+        AlgorithmAction,
+        ActionCount
+    } pressAction;
+
+    GraphWidget(QWidget* parent = nullptr, bool isOriented = false);
 
     virtual void removeNode(uintptr_t id) override;
     virtual void nodeClicked(uintptr_t id) override;
@@ -23,6 +40,9 @@ public:
     virtual void isOriented() const override;
     virtual void removeEdge(uintptr_t id) override;
     virtual void displayCostDialog(uintptr_t id) override;
+
+public slots:
+    void applyAlgorithm();
 
 private:
     virtual void mousePressEvent(QMouseEvent* event) override;
@@ -40,5 +60,7 @@ private:
 
     std::map<uintptr_t, Node> vertices;
     std::map<uintptr_t, Edge> edges;
+
+    bool isOriented;
 };
 

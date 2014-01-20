@@ -1,7 +1,6 @@
 #include "dialog.h"
-#include "ui_dialog.h"
-
 #include "graphwidget.h"
+
 
 Dialog::Dialog(QWidget *parent, GraphWidget *graph) :
     QDialog(parent),

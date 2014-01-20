@@ -4,16 +4,12 @@
 
 class GraphWidget;
 
-namespace Ui {
-class Dialog;
-}
-
 class Dialog : public QDialog
 {
     Q_OBJECT
     
 public:
-    explicit Dialog(QWidget *parent, GraphWidget *graph);
+    explicit Dialog(QWidget* parent, GraphWidget* graph);
     ~Dialog();
 
 private slots:
@@ -21,7 +17,6 @@ private slots:
     void setToNonOriented();
 
 private:
-    Ui::Dialog*   ui;
     GraphWidget*  g;
 };
 
