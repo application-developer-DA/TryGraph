@@ -17,12 +17,12 @@ class GraphWidget : public QGraphicsView
 public:
     GraphWidget(QWidget* parent = nullptr);
 
-    virtual void removeNode(int id) override;
-    virtual void nodeClicked(int id) override;
+    virtual void removeNode(uintptr_t id) override;
+    virtual void nodeClicked(uintptr_t id) override;
 
     virtual void isOriented() const override;
-    virtual void removeEdge(Edge *edge) override;
-    virtual void displayCostDialog(Edge *edge) override;
+    virtual void removeEdge(uintptr_t id) override;
+    virtual void displayCostDialog(uintptr_t id) override;
 
 private:
     virtual void mousePressEvent(QMouseEvent* event) override;

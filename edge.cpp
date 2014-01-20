@@ -11,7 +11,7 @@
 static const double Pi = 3.14159265358979323846264338327950288419717;
 static const double TwoPi = 2.0 * Pi;
 
-Edge::Edge(IEdgeObserver* observer, Node *sourceNode, Node *destinationNode, int costValue)
+Edge::Edge(IEdgeObserver* observer, const Node* sourceNode, const Node* destinationNode, int costValue)
     : observer(observer)
     , source(sourceNode)
     , destination(destinationNode)
@@ -42,16 +42,6 @@ void Edge::adjust()
     else {
         sourcePoint = destinationPoint = line.p1();
     }
-}
-
-void Edge::setCost(int costValue)
-{
-    cost = costValue;
-}
-
-int Edge::costLink() const
-{
-    return cost;
 }
 
 QRectF Edge::boundingRect() const
@@ -94,8 +84,11 @@ QPainterPath Edge::shape() const
     return p;
 }
 
-void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void Edge::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
+
     if (!source || !destination)
         return;
 
@@ -136,14 +129,14 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     }
 }
 
-void Edge::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void Edge::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     switch (event->button()) {
     case Qt::RightButton:
-        observer->removeEdge(this);
+        observer->removeEdge((uintptr_t)this);
         break;
     case Qt::LeftButton:
-        observer->displayCostDialog(this);
+        observer->displayCostDialog((uintptr_t)this);
         break;
     }
 
@@ -151,7 +144,7 @@ void Edge::mousePressEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsItem::mousePressEvent(event);
 }
 
-void Edge::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void Edge::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
     update();
     QGraphicsItem::mouseReleaseEvent(event);

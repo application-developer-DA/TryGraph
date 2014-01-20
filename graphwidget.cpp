@@ -5,6 +5,7 @@
 #include <QGraphicsView>
 #include <QtGui>
 
+
 GraphWidget::GraphWidget(QWidget* parent)
     : QGraphicsView(parent)
 {

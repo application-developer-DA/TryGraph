@@ -12,7 +12,7 @@ TARGET = simple-graph-editor
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
+SOURCES += main.cpp \
     mainwindow.cpp \
     node.cpp \
     edge.cpp \
@@ -27,8 +27,6 @@ HEADERS  += mainwindow.h \
     dialog.h \
     costdialog.h
 
-FORMS    += mainwindow.ui \
-    dialog.ui \
-    costdialog.ui
+FORMS    += mainwindow.ui
 
 QMAKE_CXXFLAGS += -std=c++0x \

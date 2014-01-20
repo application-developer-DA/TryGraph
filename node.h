@@ -12,18 +12,17 @@ class Node : public QGraphicsItem
 public:
     class INodeObserver
     {
-        virtual void removeNode(int id) = 0;
-        virtual void nodeClicked(int id) = 0;
+        virtual void removeNode(uintptr_t id) = 0;
+        virtual void nodeClicked(uintptr_t id) = 0;
     };
 
-    Node(INodeObserver* observer, qreal x = 0, qreal y = 0, int id = -1);
+    Node(INodeObserver* observer, int x, int y);
 
     void addEdge(Edge& edge);
     void removeEdge(Edge& edge);
     void removeConnections();
 
-    void setId(int id)                      { this->id = id; }
-    std::list<Edge&> edges() const          { return edgesList; }
+    std::list<Edge&> edges() const  { return edgesList; }
 
 private:
     static const int  ellipseSideWidth = 15;

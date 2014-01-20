@@ -11,14 +11,14 @@ public:
     class IEdgeObserver
     {
         virtual bool isOriented() const = 0;
-        virtual void removeEdge(Edge* edge) = 0;
-        virtual void displayCostDialog(Edge* edge) = 0;
+        virtual void removeEdge(uintptr_t id) = 0;
+        virtual void displayCostDialog(uintptr_t id) = 0;
     };
 
-    Edge(IEdgeObserver* observer, Node* sourceNode, Node* destinationNode, int costValue = 1);
+    Edge(IEdgeObserver* observer, const Node* sourceNode, const Node* destinationNode, int costValue = 1);
 
-    Node* sourceNode() const         { return source; }
-    Node* destinationNode() const    { return destination; }
+    const Node* sourceNode() const         { return source; }
+    const Node* destinationNode() const    { return destination; }
 
     int cost() const                 { return cost; }
     void setCost(int costValue)      { cost = costValue; }
@@ -32,14 +32,14 @@ public:
 private:
     static const int lineWidth = 2;
 
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void mousePressEvent(QGraphicsSceneMouseEvent* event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
 
-    IEdgeObserver* observer;
+    IEdgeObserver*  observer;
 
-    int   cost;
-    Node* source;
-    Node* destination;
+    int             cost;
+    const Node*     source;
+    const Node*     destination;
 
     QPointF sourcePoint;
     QPointF destinationPoint;

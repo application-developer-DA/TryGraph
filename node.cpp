@@ -8,9 +8,8 @@
 #include <QGraphicsSceneMouseEvent>
 
 
-Node::Node(INodeObserver* observer, qreal x, qreal y, int id)
+Node::Node(INodeObserver* observer, int x, int y)
     : observer(observer)
-    , id(id)
     , shortestPath(std::numeric_limits<int>::max())
 {
     setPos(x, y);
@@ -83,10 +82,10 @@ void Node::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     switch (event->button()) {
     case Qt::RightButton:
-        observer->removeNode(id);
+        observer->removeNode((uintptr_t)this);
         break;
     case Qt::LeftButton:
-        observer->nodeClicked(id);
+        observer->nodeClicked((uintptr_t)this);
         break;
     }
 
