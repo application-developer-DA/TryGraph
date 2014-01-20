@@ -16,16 +16,12 @@ SOURCES += main.cpp \
     mainwindow.cpp \
     node.cpp \
     edge.cpp \
-    graphwidget.cpp \
-    dialog.cpp \
-    costdialog.cpp
+    graphwidget.cpp
 
 HEADERS  += mainwindow.h \
     node.h \
     edge.h \
-    graphwidget.h \
-    dialog.h \
-    costdialog.h
+    graphwidget.h
 
 FORMS    += mainwindow.ui
 
