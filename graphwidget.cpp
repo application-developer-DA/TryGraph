@@ -23,12 +23,12 @@ GraphWidget::GraphWidget(QWidget* parent, bool oriented)
 void GraphWidget::removeNode(uintptr_t id)
 {
     auto it = vertices.find(id);
-    Q_ASSERT(it != vertices.end());
+    if (it == vertices.end()) {
+        Q_ASSERT(it != vertices.end());
+        return;
+    }
 
-    auto adjacentEdges = it->second->edgeIdentifiers();
-    for (auto it = begin(adjacentEdges); it != end(adjacentEdges); ++it)
-        edges.erase(*it);
-
+    auto adjacentEdges = it->second->edgeIdentifiers().clear();
     vertices.erase(id);
 }
 
@@ -54,7 +54,10 @@ bool GraphWidget::isOriented() const
 void GraphWidget::removeEdge(uintptr_t id)
 {
     auto it = edges.find(id);
-    Q_ASSERT(it != edges.end());
+    if (it == edges.end()) {
+        Q_ASSERT(it != edges.end());
+        return;
+    }
     edges.erase(it);
 }
 
@@ -66,7 +69,7 @@ void GraphWidget::displayCostDialog(uintptr_t id)
 
 void GraphWidget::applyAlgorithm()
 {
-    Algorithm algorithm = (Algorithm)sender()->property("Algorithm").toInt();
+    Algorithm algorithm = static_cast<Algorithm>(sender()->property("Algorithm").toInt());
     switch (algorithm) {
     case DijkstraAlgorithm:
         break;
@@ -91,7 +94,7 @@ void GraphWidget::applyAlgorithm()
 
 void GraphWidget::mousePressEvent(QMouseEvent* event)
 {
-    if(event->button() == Qt::MiddleButton)
+    if (event->button() == Qt::MiddleButton)
         addVertex(event->x(), event->y());
 
     update();
@@ -100,9 +103,9 @@ void GraphWidget::mousePressEvent(QMouseEvent* event)
 
 void GraphWidget::keyPressEvent(QKeyEvent* event)
 {
-    if(event->key() == Qt::Key_Plus)
+    if (event->key() == Qt::Key_Plus)
         scale(2.0, 2.0);
-    else if(event->key() == Qt::Key_Minus)
+    else if (event->key() == Qt::Key_Minus)
         scale(0.9, 0.9);
     QGraphicsView::keyPressEvent(event);
 }
@@ -116,6 +119,4 @@ void GraphWidget::addVertex(int x, int y)
     Q_ASSERT(vertices.find((uintptr_t)node) == vertices.end());
     vertices.insert(std::make_pair((uintptr_t)node, std::unique_ptr<Node>(node)));
 }
-
-
 

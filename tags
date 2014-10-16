@@ -1,0 +1,113 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ActionCount	graphwidget.h	/^        ActionCount$/;"	e	enum:GraphWidget::OnPressAction
+AddEdgeAction	graphwidget.h	/^        AddEdgeAction,$/;"	e	enum:GraphWidget::OnPressAction
+Algorithm	graphwidget.h	/^enum Algorithm {$/;"	g
+AlgorithmAction	graphwidget.h	/^        AlgorithmAction,$/;"	e	enum:GraphWidget::OnPressAction
+AlgorithmCount	graphwidget.h	/^    AlgorithmCount$/;"	e	enum:Algorithm
+BellmanFordAlgorithm	graphwidget.h	/^    BellmanFordAlgorithm,$/;"	e	enum:Algorithm
+BfsAlgorithm	graphwidget.h	/^    BfsAlgorithm,$/;"	e	enum:Algorithm
+ConnectivityCheckAlgorithm	graphwidget.h	/^    ConnectivityCheckAlgorithm,$/;"	e	enum:Algorithm
+DfsAlgorithm	graphwidget.h	/^    DfsAlgorithm,$/;"	e	enum:Algorithm
+DijkstraAlgorithm	graphwidget.h	/^    DijkstraAlgorithm,$/;"	e	enum:Algorithm
+Edge	edge.cpp	/^Edge::Edge(IEdgeObserver* observer, const QGraphicsItem* sourceNode, const QGraphicsItem* destinationNode)$/;"	f	class:Edge
+Edge	edge.h	/^class Edge : public QGraphicsItem$/;"	c
+EditAction	graphwidget.h	/^        EditAction,$/;"	e	enum:GraphWidget::OnPressAction
+GraphWidget	graphwidget.cpp	/^GraphWidget::GraphWidget(QWidget* parent, bool oriented)$/;"	f	class:GraphWidget
+GraphWidget	graphwidget.h	/^class GraphWidget : public QGraphicsView$/;"	c
+IEdgeObserver	edge.h	/^    class IEdgeObserver$/;"	c	class:Edge
+INodeObserver	node.h	/^    class INodeObserver$/;"	c	class:Node
+KruskalAlgorithm	graphwidget.h	/^    KruskalAlgorithm,$/;"	e	enum:Algorithm
+MainWindow	mainwindow.cpp	/^MainWindow::MainWindow(QWidget* parent)$/;"	f	class:MainWindow
+MainWindow	mainwindow.h	/^class MainWindow : public QMainWindow$/;"	c
+Node	node.cpp	/^Node::Node(INodeObserver* observer, int x, int y)$/;"	f	class:Node
+Node	node.h	/^class Node : public QGraphicsItem$/;"	c
+OnPressAction	graphwidget.h	/^    enum OnPressAction {$/;"	g	class:GraphWidget
+Pi	edge.cpp	/^static const double Pi = 3.14159265358979323846264338327950288419717;$/;"	v	file:
+PrimAlgorithm	graphwidget.h	/^    PrimAlgorithm,$/;"	e	enum:Algorithm
+TwoPi	edge.cpp	/^static const double TwoPi = 2.0 * Pi;$/;"	v	file:
+Ui	mainwindow.h	/^namespace Ui {$/;"	n
+addEdge	node.cpp	/^void Node::addEdge(Edge* edge)$/;"	f	class:Node
+addVertex	graphwidget.cpp	/^void GraphWidget::addVertex(int x, int y)$/;"	f	class:GraphWidget
+adjust	edge.cpp	/^void Edge::adjust()$/;"	f	class:Edge
+algorithmMenu	mainwindow.h	/^    QMenu*    algorithmMenu;$/;"	m	class:MainWindow
+applyAlgorithm	graphwidget.cpp	/^void GraphWidget::applyAlgorithm()$/;"	f	class:GraphWidget
+bellmanFordAction	mainwindow.h	/^    QAction*  bellmanFordAction;$/;"	m	class:MainWindow
+bfsAction	mainwindow.h	/^    QAction*  bfsAction;$/;"	m	class:MainWindow
+boundingRect	edge.cpp	/^QRectF Edge::boundingRect() const$/;"	f	class:Edge
+boundingRect	node.cpp	/^QRectF Node::boundingRect() const$/;"	f	class:Node
+connectivityCheckAction	mainwindow.h	/^    QAction*  connectivityCheckAction;$/;"	m	class:MainWindow
+cost	edge.h	/^    int     cost;$/;"	m	class:Edge
+destination	edge.h	/^    const QGraphicsItem*     destination;$/;"	m	class:Edge
+destinationPoint	edge.h	/^    QPointF destinationPoint;$/;"	m	class:Edge
+dfsAction	mainwindow.h	/^    QAction*  dfsAction;$/;"	m	class:MainWindow
+dijkstraAction	mainwindow.h	/^    QAction*  dijkstraAction;$/;"	m	class:MainWindow
+displayCostDialog	graphwidget.cpp	/^void GraphWidget::displayCostDialog(uintptr_t id)$/;"	f	class:GraphWidget
+edgeIdentifiers	node.cpp	/^std::list<uintptr_t> Node::edgeIdentifiers() const$/;"	f	class:Node
+edgeModeChanged	mainwindow.cpp	/^void MainWindow::edgeModeChanged()$/;"	f	class:MainWindow
+edges	graphwidget.h	/^    std::map<uintptr_t, std::unique_ptr<Edge>> edges;$/;"	m	class:GraphWidget
+edgesList	node.h	/^    std::list<Edge*>  edgesList;$/;"	m	class:Node
+edgesMode	mainwindow.h	/^    QRadioButton* edgesMode;$/;"	m	class:MainWindow
+ellipseSideWidth	node.h	/^    static const int  ellipseSideWidth = 15;$/;"	m	class:Node
+fileMenu	mainwindow.h	/^    QMenu*    fileMenu;$/;"	m	class:MainWindow
+graph	mainwindow.h	/^    GraphWidget*  graph;$/;"	m	class:MainWindow
+isOriented	graphwidget.cpp	/^bool GraphWidget::isOriented() const$/;"	f	class:GraphWidget
+itemChange	node.cpp	/^QVariant Node::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant& value)$/;"	f	class:Node
+keyPressEvent	graphwidget.cpp	/^void GraphWidget::keyPressEvent(QKeyEvent* event)$/;"	f	class:GraphWidget
+kruskalsAction	mainwindow.h	/^    QAction*  kruskalsAction;$/;"	m	class:MainWindow
+lineWidth	edge.h	/^    static const int lineWidth = 2;$/;"	m	class:Edge
+main	main.cpp	/^int main(int argc, char* argv[])$/;"	f
+mousePressEvent	edge.cpp	/^void Edge::mousePressEvent(QGraphicsSceneMouseEvent* event)$/;"	f	class:Edge
+mousePressEvent	graphwidget.cpp	/^void GraphWidget::mousePressEvent(QMouseEvent* event)$/;"	f	class:GraphWidget
+mousePressEvent	node.cpp	/^void Node::mousePressEvent(QGraphicsSceneMouseEvent *event)$/;"	f	class:Node
+mouseReleaseEvent	edge.cpp	/^void Edge::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)$/;"	f	class:Edge
+mouseReleaseEvent	node.cpp	/^void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)$/;"	f	class:Node
+newAction	mainwindow.h	/^    QAction*  newAction;$/;"	m	class:MainWindow
+newFile	mainwindow.cpp	/^void MainWindow::newFile()$/;"	f	class:MainWindow
+nodeClicked	graphwidget.cpp	/^void GraphWidget::nodeClicked(uintptr_t id)$/;"	f	class:GraphWidget
+observer	edge.h	/^    IEdgeObserver*  observer;$/;"	m	class:Edge
+observer	node.h	/^    INodeObserver*    observer;$/;"	m	class:Node
+openAction	mainwindow.h	/^    QAction*  openAction;$/;"	m	class:MainWindow
+openFile	mainwindow.cpp	/^void MainWindow::openFile()$/;"	f	class:MainWindow
+oriented	graphwidget.h	/^    bool oriented;$/;"	m	class:GraphWidget
+override	edge.h	/^    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;$/;"	m	class:Edge
+override	edge.h	/^    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;$/;"	m	class:Edge
+override	edge.h	/^    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;$/;"	m	class:Edge
+override	graphwidget.h	/^    virtual bool isOriented() const override;$/;"	m	class:GraphWidget
+override	graphwidget.h	/^    virtual void displayCostDialog(uintptr_t id) override;$/;"	m	class:GraphWidget
+override	graphwidget.h	/^    virtual void keyPressEvent(QKeyEvent* event) override;$/;"	m	class:GraphWidget
+override	graphwidget.h	/^    virtual void mousePressEvent(QMouseEvent* event) override;$/;"	m	class:GraphWidget
+override	graphwidget.h	/^    virtual void nodeClicked(uintptr_t id) override;$/;"	m	class:GraphWidget
+override	graphwidget.h	/^    virtual void removeEdge(uintptr_t id) override;$/;"	m	class:GraphWidget
+override	graphwidget.h	/^    virtual void removeNode(uintptr_t id) override;$/;"	m	class:GraphWidget
+override	node.h	/^    virtual QPainterPath shape() const override;$/;"	m	class:Node
+override	node.h	/^    virtual QRectF boundingRect() const override;$/;"	m	class:Node
+override	node.h	/^    virtual QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;$/;"	m	class:Node
+override	node.h	/^    virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;$/;"	m	class:Node
+override	node.h	/^    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;$/;"	m	class:Node
+override	node.h	/^    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;$/;"	m	class:Node
+paint	edge.cpp	/^void Edge::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)$/;"	f	class:Edge
+paint	node.cpp	/^void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget*)$/;"	f	class:Node
+pen	edge.h	/^    QPen    pen;$/;"	m	class:Edge
+pressAction	graphwidget.h	/^    } pressAction;$/;"	m	class:GraphWidget	typeref:enum:GraphWidget::OnPressAction
+primsAction	mainwindow.h	/^    QAction*  primsAction;$/;"	m	class:MainWindow
+removeConnections	node.cpp	/^void Node::removeConnections()$/;"	f	class:Node
+removeEdge	graphwidget.cpp	/^void GraphWidget::removeEdge(uintptr_t id)$/;"	f	class:GraphWidget
+removeEdge	node.cpp	/^void Node::removeEdge(Edge* edge)$/;"	f	class:Node
+removeNode	graphwidget.cpp	/^void GraphWidget::removeNode(uintptr_t id)$/;"	f	class:GraphWidget
+saveAction	mainwindow.h	/^    QAction*  saveAction;$/;"	m	class:MainWindow
+saveFile	mainwindow.cpp	/^void MainWindow::saveFile()$/;"	f	class:MainWindow
+setStatusBarMessage	mainwindow.cpp	/^void MainWindow::setStatusBarMessage(const QString& message = "Choose the vertex please")$/;"	f	class:MainWindow
+shape	edge.cpp	/^QPainterPath Edge::shape() const$/;"	f	class:Edge
+shape	node.cpp	/^QPainterPath Node::shape() const$/;"	f	class:Node
+shortestPath	node.h	/^    int               shortestPath;$/;"	m	class:Node
+source	edge.h	/^    const QGraphicsItem*     source;$/;"	m	class:Edge
+sourcePoint	edge.h	/^    QPointF sourcePoint;$/;"	m	class:Edge
+ui	mainwindow.h	/^    Ui::MainWindow* ui;$/;"	m	class:MainWindow
+vertexMode	mainwindow.h	/^    QRadioButton* vertexMode;$/;"	m	class:MainWindow
+vertices	graphwidget.h	/^    std::map<uintptr_t, std::unique_ptr<Node>> vertices;$/;"	m	class:GraphWidget
+~MainWindow	mainwindow.cpp	/^MainWindow::~MainWindow()$/;"	f	class:MainWindow

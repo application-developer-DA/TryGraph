@@ -21,13 +21,13 @@ public:
 
     QRectF boundingRect() const;
     QPainterPath shape() const;
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
 
 private:
     static const int lineWidth = 2;
 
-    void mousePressEvent(QGraphicsSceneMouseEvent* event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
+    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
 
     IEdgeObserver*  observer;
 
@@ -36,8 +36,7 @@ private:
 
     QPointF sourcePoint;
     QPointF destinationPoint;
-
-    int  cost;
-    QPen pen;
+    int     cost;
+    QPen    pen;
 };
 

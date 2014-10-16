@@ -11,21 +11,23 @@
 static const double Pi = 3.14159265358979323846264338327950288419717;
 static const double TwoPi = 2.0 * Pi;
 
+
 Edge::Edge(IEdgeObserver* observer, const QGraphicsItem* sourceNode, const QGraphicsItem* destinationNode)
     : observer(observer)
     , source(sourceNode)
     , destination(destinationNode)
+    , cost(-1)
+    , pen(Qt::black, lineWidth, Qt::SolidLine, Qt::Roundcap, Qt::RoundJoin)
 {
     // source->addEdge(this);
     // destination->addEdge(this);
-    pen = QPen(Qt::black, lineWidth, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
 
     adjust();
 }
 
 void Edge::adjust()
 {
-    if(!source || !destination)
+    if (!source || !destination)
         return;
 
     QLineF line(mapFromItem(source, 0, 0), mapFromItem(destination, 0, 0));
@@ -33,7 +35,7 @@ void Edge::adjust()
 
     prepareGeometryChange();
 
-    if(length > qreal(20.)) {
+    if (length > qreal(20.)) {
         sourcePoint = line.p1();
         destinationPoint = line.p2();
     }
@@ -71,14 +73,13 @@ QPainterPath Edge::shape() const
 
     QPainterPathStroker ps;
     ps.setCapStyle(pen.capStyle());
-    if (pen.widthF() <= 0.0)
-        ps.setWidth(penWidthZero);
-    else
-        ps.setWidth(pen.widthF());
+    ps.setWidth(pen.widthF() <= 0.0 ? penWidthZero : pen.widthF());
     ps.setJoinStyle(pen.joinStyle());
     ps.setMiterLimit(pen.miterLimit());
+
     QPainterPath p = ps.createStroke(path);
     p.addPath(path);
+
     return p;
 }
 
@@ -95,20 +96,13 @@ void Edge::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWid
         return;
 
     bool isInTree = false;
-    // Draw the line itself
-    if(!isInTree) {
-        painter->setPen(pen);
-    }
-    else {
-        QPen mypen = QPen(Qt::darkGreen, lineWidth, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
-        painter->setPen(mypen);
-    }
-    painter->drawLine(line);
 
-    // Getting mid point of the line
+    painter->setPen(isInTree ? QPen(Qt::darkGreen, lineWidth, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+
+    // Get mid point of the line
     int x = line.x1() + line.x2();
     int y = line.y1() + line.y2();
-    QPointF midpoint(x / 2, y / 2);
+    QPointF midpoint(x / 2., y / 2.);
     painter->drawText(midpoint, QString::number(cost));
 
     if(observer->isOriented()) {
